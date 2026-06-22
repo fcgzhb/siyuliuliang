@@ -1,0 +1,31 @@
+<% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+<nav aria-label="分页">
+  <ul class="pagination pagination-sm">
+    <% if (currentPage > 1) { %>
+      <li class="page-item">
+        <a class="page-link" href="<%= baseUrl %>?page=<%= currentPage - 1 %><%= searchQuery %>">&laquo;</a>
+      </li>
+    <% } %>
+    <% var startPage = Math.max(1, currentPage - 2); %>
+    <% var endPage = Math.min(totalPages, currentPage + 2); %>
+    <% if (startPage > 1) { %>
+      <li class="page-item"><a class="page-link" href="<%= baseUrl %>?page=1<%= searchQuery %>">1</a></li>
+      <% if (startPage > 2) { %><li class="page-item disabled"><span class="page-link">...</span></li><% } %>
+    <% } %>
+    <% for (var i = startPage; i <= endPage; i++) { %>
+      <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+        <a class="page-link" href="<%= baseUrl %>?page=<%= i %><%= searchQuery %>"><%= i %></a>
+      </li>
+    <% } %>
+    <% if (endPage < totalPages) { %>
+      <% if (endPage < totalPages - 1) { %><li class="page-item disabled"><span class="page-link">...</span></li><% } %>
+      <li class="page-item"><a class="page-link" href="<%= baseUrl %>?page=<%= totalPages %><%= searchQuery %>"><%= totalPages %></a></li>
+    <% } %>
+    <% if (currentPage < totalPages) { %>
+      <li class="page-item">
+        <a class="page-link" href="<%= baseUrl %>?page=<%= currentPage + 1 %><%= searchQuery %>">&raquo;</a>
+      </li>
+    <% } %>
+  </ul>
+</nav>
+<% } %>

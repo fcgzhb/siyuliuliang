@@ -1,0 +1,210 @@
+<h4 class="mb-3">控制台</h4>
+
+<!-- Metric cards -->
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-bg-primary">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-white-50 small">用户总数</div>
+            <div class="fs-4 fw-bold"><%= metrics.totalUsers %></div>
+          </div>
+          <i class="bi bi-people-fill fs-3 text-white-50"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-bg-success">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-white-50 small">互动总数</div>
+            <div class="fs-4 fw-bold"><%= metrics.totalInteractions %></div>
+          </div>
+          <i class="bi bi-chat-dots-fill fs-3 text-white-50"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-bg-danger">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-white-50 small">流失预警</div>
+            <div class="fs-4 fw-bold"><%= metrics.churnPending %></div>
+          </div>
+          <i class="bi bi-exclamation-triangle-fill fs-3 text-white-50"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-bg-info">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-white-50 small">平均转化率</div>
+            <div class="fs-4 fw-bold"><%= metrics.avgConversion.toFixed(1) %>%</div>
+          </div>
+          <i class="bi bi-graph-up-arrow fs-3 text-white-50"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-bg-warning">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-white-50 small">待处理反馈</div>
+            <div class="fs-4 fw-bold"><%= metrics.totalFeedback %></div>
+          </div>
+          <i class="bi bi-envelope-fill fs-3 text-white-50"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-bg-secondary">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-white-50 small">进行中策略</div>
+            <div class="fs-4 fw-bold"><%= metrics.activeStrategies %></div>
+          </div>
+          <i class="bi bi-megaphone-fill fs-3 text-white-50"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <!-- Recent interactions -->
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header fw-bold">
+        <i class="bi bi-clock-history me-1 text-primary"></i>最近互动记录
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-sm mb-0">
+          <thead class="table-light">
+            <tr><th>用户</th><th>类型</th><th>结果</th><th>日期</th></tr>
+          </thead>
+          <tbody>
+            <% if (recentInteractions.length === 0) { %>
+              <tr><td colspan="4" class="text-center text-muted py-3">暂无互动记录</td></tr>
+            <% } else { %>
+              <% for (const r of recentInteractions) { %>
+                <tr>
+                  <td><%= r.userName %></td>
+                  <td><span class="badge bg-info"><%= r.interactionType %></span></td>
+                  <td><span class="badge bg-<%= r.interactionOutcome === '正向' || r.interactionOutcome === '转化' ? 'success' : r.interactionOutcome === '负面' ? 'danger' : 'secondary' %>"><%= r.interactionOutcome || '-' %></span></td>
+                  <td class="text-muted small"><%= r.interactionDate ? r.interactionDate.slice(0,10) : '-' %></td>
+                </tr>
+              <% } %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top users -->
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header fw-bold">
+        <i class="bi bi-trophy me-1 text-warning"></i>用户价值排行 TOP 5
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-sm mb-0">
+          <thead class="table-light">
+            <tr><th>排名</th><th>用户名</th><th>邮箱</th><th>价值评分</th></tr>
+          </thead>
+          <tbody>
+            <% if (topUsers.length === 0) { %>
+              <tr><td colspan="4" class="text-center text-muted py-3">暂无用户数据</td></tr>
+            <% } else { %>
+              <% for (var i = 0; i < topUsers.length; i++) { %>
+                <tr>
+                  <td>
+                    <% if (i === 0) { %><span class="badge bg-warning text-dark">1</span><% } %>
+                    <% if (i === 1) { %><span class="badge bg-secondary">2</span><% } %>
+                    <% if (i === 2) { %><span class="badge bg-danger">3</span><% } %>
+                    <% if (i > 2) { %><%= i + 1 %><% } %>
+                  </td>
+                  <td><%= topUsers[i].userName %></td>
+                  <td class="text-muted small"><%= topUsers[i].email || '-' %></td>
+                  <td><span class="badge bg-<%= topUsers[i].userValueScore >= 70 ? 'success' : topUsers[i].userValueScore >= 40 ? 'warning' : 'danger' %>"><%= topUsers[i].userValueScore %></span></td>
+                </tr>
+              <% } %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Churn distribution -->
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header fw-bold">
+        <i class="bi bi-exclamation-triangle me-1 text-danger"></i>流失预警分布
+      </div>
+      <div class="card-body">
+        <% if (churnByLevel.length === 0) { %>
+          <p class="text-muted text-center py-3">暂无预警数据</p>
+        <% } else { %>
+          <div class="d-flex gap-3 justify-content-center align-items-end" style="height:120px;">
+            <% var maxCount = Math.max(...churnByLevel.map(c => c.count)) || 1; %>
+            <% for (const c of churnByLevel) { %>
+              <div class="text-center" style="width:60px;">
+                <div class="bg-<%= c.risk_level === 'high' ? 'danger' : c.risk_level === 'medium' ? 'warning' : 'success' %>"
+                     style="height:<%= Math.max((c.count / maxCount) * 100, 10) %>px; border-radius:4px 4px 0 0;"></div>
+                <div class="mt-1"><small class="fw-bold"><%= c.count %></small></div>
+                <div class="text-muted" style="font-size:0.75rem;"><%= c.risk_level === 'high' ? '高' : c.risk_level === 'medium' ? '中' : '低' %></div>
+              </div>
+            <% } %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent feedback -->
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header fw-bold">
+        <i class="bi bi-chat-left-text me-1 text-info"></i>最近反馈
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-sm mb-0">
+          <thead class="table-light">
+            <tr><th>用户</th><th>类型</th><th>评分</th><th>状态</th></tr>
+          </thead>
+          <tbody>
+            <% if (recentFeedback.length === 0) { %>
+              <tr><td colspan="4" class="text-center text-muted py-3">暂无反馈</td></tr>
+            <% } else { %>
+              <% for (const f of recentFeedback) { %>
+                <tr>
+                  <td><%= f.userName %></td>
+                  <td><span class="badge bg-info"><%= f.feedback_type %></span></td>
+                  <td>
+                    <% for (var s = 0; s < 5; s++) { %>
+                      <i class="bi bi-star-<%= s < f.rating ? 'fill text-warning' : '' %>"></i>
+                    <% } %>
+                  </td>
+                  <td><span class="badge bg-<%= f.status === 'resolved' ? 'success' : 'secondary' %>"><%= f.status === 'resolved' ? '已处理' : '待处理' %></span></td>
+                </tr>
+              <% } %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <div class="position-sticky pt-3">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'dashboard' ? 'active' : '' %>"
+           href="/dashboard">
+          <i class="bi bi-speedometer2 me-2"></i>控制台
+        </a>
+      </li>
+
+      <li class="nav-item mt-2"><span class="nav-link text-muted small fw-bold">用户管理</span></li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'user-profiles' ? 'active' : '' %>"
+           href="/user-profiles">
+          <i class="bi bi-person-vcard me-2"></i>用户画像管理
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'interactions' ? 'active' : '' %>"
+           href="/interactions">
+          <i class="bi bi-chat-dots me-2"></i>互动记录管理
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'churn-warnings' ? 'active' : '' %>"
+           href="/churn-warnings">
+          <i class="bi bi-exclamation-triangle me-2"></i>流失预警管理
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'user-center' ? 'active' : '' %>"
+           href="/user-center">
+          <i class="bi bi-person me-2"></i>用户中心
+        </a>
+      </li>
+
+      <li class="nav-item mt-2"><span class="nav-link text-muted small fw-bold">内容与营销</span></li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'content-push' ? 'active' : '' %>"
+           href="/content-push">
+          <i class="bi bi-send me-2"></i>内容推送管理
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'marketing-strategy' ? 'active' : '' %>"
+           href="/marketing-strategy">
+          <i class="bi bi-megaphone me-2"></i>营销策略管理
+        </a>
+      </li>
+
+      <li class="nav-item mt-2"><span class="nav-link text-muted small fw-bold">活动与反馈</span></li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'activity-effect' ? 'active' : '' %>"
+           href="/activity-effect">
+          <i class="bi bi-bar-chart me-2"></i>活动效果管理
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'feedback' ? 'active' : '' %>"
+           href="/feedback">
+          <i class="bi bi-chat-left-text me-2"></i>反馈收集管理
+        </a>
+      </li>
+
+      <li class="nav-item mt-2"><span class="nav-link text-muted small fw-bold">系统管理</span></li>
+      <li class="nav-item">
+        <a class="nav-link <%= typeof activeMenu !== 'undefined' && activeMenu === 'permissions' ? 'active' : '' %>"
+           href="/permissions">
+          <i class="bi bi-shield-lock me-2"></i>权限分配
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

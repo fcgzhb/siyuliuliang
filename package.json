@@ -1,0 +1,25 @@
+{
+  "name": "siyuliuliang",
+  "version": "1.0.0",
+  "description": "私域流量用户运营管理平台",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:stop": "pm2 stop siyuliuliang",
+    "pm2:restart": "pm2 restart siyuliuliang",
+    "pm2:logs": "pm2 logs siyuliuliang",
+    "pm2:delete": "pm2 delete siyuliuliang",
+    "init-db": "node db/init.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "better-sqlite3": "^11.0.0",
+    "ejs": "^3.1.10",
+    "express-session": "^1.18.0",
+    "bcrypt": "^5.1.1",
+    "multer": "^1.4.5-lts.1",
+    "pm2": "^5.4.0"
+  }
+}
